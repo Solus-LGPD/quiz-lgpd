@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String   @id @default(cuid())
+  firstName   String
+  lastName    String
+  companyName String
+  phone       String   @unique
+  email       String   @unique
+  createdAt   DateTime @default(now())
+
+  quizzes Quiz[]
+
+  @@map("user")
+}
+
+model Quiz {
+  id     Int      @id @default(autoincrement())
+  result String
+  userId String
+  makeAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("quiz")
+}
