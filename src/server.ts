@@ -1,22 +1,21 @@
 import express, {Request, Response, ErrorRequestHandler} from 'express';
 import path from 'path';
 import cors from 'cors';
+import apiRoutes from './routes/api';
 
-const api = express();
+const server = express();
 const port = 3333;
 
-api.use(cors());
+server.use(cors());
 
-api.use(express.static(path.join(__dirname, '../public')));
-api.use(express.urlencoded({ extended: true }));
+server.use(express.static(path.join(__dirname, '../public')));
+server.use(express.urlencoded({ extended: true }));
 
-api.get('/', (req:Request, res: Response) => {
-    res.json({
-        result: "Hello World"
-    })
-});
 
-api.use((req: Request, res: Response) => {
+server.use(apiRoutes);
+
+
+server.use((req: Request, res: Response) => {
     res.status(404);
     res.json({ error: 'Endpoint não encontrado.' });
 });
@@ -26,10 +25,10 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     console.log(err);
     res.json({ error: 'Ocorreu algum erro.' });
 }
-api.use(errorHandler);
+server.use(errorHandler);
 
 
 //Localhost PORT settings
-api.listen(port, () => {
+server.listen(port, () => {
     console.log(`Running on Port ${port}`);
 });
