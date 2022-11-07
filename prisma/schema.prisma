@@ -19,6 +19,7 @@ model User {
   firstName   String
   lastName    String
   companyName String
+  password    String
   phone       String   @unique
   email       String   @unique
   createdAt   DateTime @default(now())
@@ -29,10 +30,10 @@ model User {
 }
 
 model Quiz {
-  id     Int      @id @default(autoincrement())
-  result String
-  userId String
-  makeAt DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  result    String
+  userId    String
+  createdAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id])
 
