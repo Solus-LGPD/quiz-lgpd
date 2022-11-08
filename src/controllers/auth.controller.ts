@@ -18,7 +18,16 @@ prisma.$use(async (params, next) => {
 
 
 export const registerUser =  async (req: Request, res: Response) => {
+    const email = req.body.email;
+    const phone = req.body.phone;
+
     try{
+        if(await prisma.user.findUnique({where:{email: email}})){
+            res.status(400).send({error: "User already exists"});
+        }
+        else if(await prisma.user.findUnique({where:{phone: phone}})){
+            res.status(400).send({error: "Phone number already registered"});
+        }
         const createUser = z.object({
             firstName: z.string(),
             lastName: z.string(),
@@ -40,7 +49,8 @@ export const registerUser =  async (req: Request, res: Response) => {
                 password: userData.password,
             }
         });
-        res.json({user: user});
+        userData.password = '****';
+        res.status(201).json({user: user});
     }
     catch(err: any){
         res.status(400).send({error: "Registration Failed"});
