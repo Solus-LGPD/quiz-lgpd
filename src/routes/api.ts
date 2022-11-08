@@ -15,6 +15,7 @@ router.get('/test', (req:Request, res: Response) => {
 
 //Authentication Endpoints
 router.post('/auth/register', AuthController.registerUser);
+router.post('/auth/login', AuthController.loginUser);
 
 
 

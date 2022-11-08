@@ -5,6 +5,7 @@ import { hash } from 'bcrypt';
 
 const prisma = new PrismaClient();
 
+//PasswordHash
 prisma.$use(async (params, next) => {
 
     if( params.model === "User" && params.action === "create" ) {
@@ -63,3 +64,37 @@ export const registerUser =  async (req: Request, res: Response) => {
         res.status(400).send({error: "Registration Failed"});
     }
 };
+
+
+export const loginUser = async (req: Request, res: Response) => {
+    const email = String(req.body.email);
+    const password = String(req.body.password);
+
+    try{
+        //Error treatment
+        if(await prisma.user.findUnique({where:{email: email}})){
+            res.status(400).send({error: "Email doenst registered"});
+        }
+
+        
+        const user = await prisma.user.findUnique({
+            where: {
+                email: email
+            },
+            select:{
+                email: true,
+                firstName: true,
+                phone: true,
+                companyName:true,
+                quizzes:true
+            }
+        });
+    
+    
+        res.status(200).json({user});
+    }
+    catch(err: any){
+        res.status(400).send({error: "Login Failed"});
+    }
+
+}
