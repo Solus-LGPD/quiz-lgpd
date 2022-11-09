@@ -17,13 +17,13 @@ server.use(apiRoutes);
 
 server.use((req: Request, res: Response) => {
     res.status(404);
-    res.json({ error: 'Endpoint não encontrado.' });
+    res.json({ error: 'Endpoint not found!' });
 });
 
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     res.status(400); // Bad Request
     console.log(err);
-    res.json({ error: 'Ocorreu algum erro.' });
+    res.json({ error: 'Something wrong went!' });
 }
 server.use(errorHandler);
 
