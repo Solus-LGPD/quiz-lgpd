@@ -1,9 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import AuthConfig from '../config/auth.json';
+import { PrismaClient } from '@prisma/client';
 
 
-module.exports = (req: Request, res: Response, next: NextFunction) => {
+const prisma = new PrismaClient();
+
+export default module.exports = (req: Request, res: Response, next: NextFunction) => {
 
     const authHeader = req.headers.authorization;
 
@@ -33,5 +36,8 @@ module.exports = (req: Request, res: Response, next: NextFunction) => {
             return res.status(401).send({ error: 'Token Invalid' });
         }
 
+        return next();
     });
+
+
 };
