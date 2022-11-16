@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express';
 import * as AuthController from '../controllers/auth.controller';
 import * as ValidationController from '../controllers/validation.controller';
 import * as LeadController from '../controllers/lead.controller';
+import * as QuizController from '../controllers/quiz.controller';
 import authMiddleware from '../middlewares/auth';
 
 
@@ -28,7 +29,8 @@ router.use(authMiddleware);
 router.get('/auth/validation', ValidationController.test);
 
 
-
+//Quiz Endpoint
+router.post('/quiz/register', QuizController.registerQuiz);
 
 
 
