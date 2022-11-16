@@ -1,0 +1,41 @@
+{
+  "name": "quiz-lgpd-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node-dev --exit-child --respawn --transpile-only --ignore-watch node_modules src/server.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Solus-LGPD/quiz-lgpd-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Solus-LGPD/quiz-lgpd-api/issues"
+  },
+  "homepage": "https://github.com/Solus-LGPD/quiz-lgpd-api#readme",
+  "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^9.1.7",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.14",
+    "@types/node": "^18.11.9",
+    "express": "^4.18.2",
+    "prisma": "^4.5.0",
+    "prisma-erd-generator": "^1.2.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.5.0",
+    "@types/bcrypt": "^5.0.0",
+    "@types/jsonwebtoken": "^8.5.9",
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "jsonwebtoken": "^8.5.1",
+    "zod": "^3.19.1"
+  }
+}
