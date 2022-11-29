@@ -10,7 +10,7 @@ export const registerQuiz = async (req: Request, res: Response) => {
     const id = req.body.userId;
     try{
         if(!await prisma.user.findUnique({where:{id:id}})){
-            res.status(400).send({error: "User doesn't exist"});
+            res.status(400).send({error: "Usuário não encontrado"});
         }
 
         const registerResult = z.object({
@@ -29,10 +29,10 @@ export const registerQuiz = async (req: Request, res: Response) => {
 
         res.status(201).json({
             result,
-            msg: "Result registered"
+            msg: "Resultado registrado"
         });
     }
     catch(err: any){
-        res.status(400).json({msg: "Result Registration Failed"});
+        res.status(400).json({msg: "Resultado de registro falhou"});
     }
 }
