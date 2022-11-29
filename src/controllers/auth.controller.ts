@@ -39,10 +39,10 @@ export const registerUser =  async (req: Request, res: Response) => {
     try{
         //Error treatment
         if(await prisma.user.findUnique({where:{email: email}})){
-            return res.status(400).send({error: "User already exists"});
+            return res.status(400).send({error: "Usuário já existente"});
         }
         else if(await prisma.user.findUnique({where:{phone: phone}})){
-            return res.status(400).send({error: "Phone number already registered"});
+            return res.status(400).send({error: "Número de telefone já registrado"});
         }
 
 
@@ -81,7 +81,7 @@ export const registerUser =  async (req: Request, res: Response) => {
         });
     }
     catch(err: any){
-        return res.status(400).send({error: "Registration Failed"});
+        return res.status(400).send({error: "O registro falhou"});
     }
 };
 
@@ -107,10 +107,10 @@ export const loginUser = async (req: Request, res: Response) => {
 
         //Error Treatment
         if(!user){
-            return res.status(400).json({error: "User Not Found"});
+            return res.status(400).json({error: "Usuário não encontrado"});
         }
         else if(!await bcrypt.compare(password, user.password)){
-            return res.status(406).json({error: "Invalid Password"});
+            return res.status(406).json({error: "Senha inválida"});
         }
 
 
@@ -122,6 +122,6 @@ export const loginUser = async (req: Request, res: Response) => {
             token: generateToken({id: user.id})});
     }
     catch(err: any){
-        return res.status(400).send({error: "Login Failed"});
+        return res.status(400).send({error: "Acesso falhou"});
     }
 }

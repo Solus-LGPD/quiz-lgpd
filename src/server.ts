@@ -6,7 +6,9 @@ import apiRoutes from './routes/api';
 const server = express();
 const port = 3333;
 
-server.use(cors());
+server.use(cors({
+    origin: ['https://solus-it.com.br/','http://www.quiz.solus-it.com.br/']
+}));
 
 server.use(express.static(path.join(__dirname, '../public')));
 server.use(express.json());
